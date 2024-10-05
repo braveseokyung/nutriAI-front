@@ -9,8 +9,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Nutria",
-  description: "Nutriaaaa",
+  title: "NutriAI",
+  description: "NutriAI",
 };
 
 export default function RootLayout({
