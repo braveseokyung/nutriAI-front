@@ -5,7 +5,7 @@ import background from "@/images/background.svg";
 import InputButton from "@/components/InputButton";
 import RecommendButton from "@/components/RecommendButton";
 
-export default function Home() {
+export default function Search() {
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen w-full bg-cover bg-center"
@@ -14,7 +14,7 @@ export default function Home() {
       <div className="absolute top-[250px]">
         <div className="flex flex-col items-center justify-center w-[672px] h-[164px] gap-5">
           <Image src={logo1} alt="NutriAI" className="w-[278px] h-[84px]" />
-          <InputButton route="home" />
+          <InputButton route="search" />
         </div>
         <div className="flex gap-x-3 pt-4">
           <RecommendButton text="요즘 자꾸 두통이 생기는 거 같아" />
