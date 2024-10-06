@@ -15,6 +15,7 @@ import os
 from dotenv import load_dotenv
 from . import models
 from .database import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
 
 # 현재 파일의 절대 경로 얻기
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,14 @@ supabase_client: Client = create_client(SUP_API_URL, SUP_API_KEY)
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 필요한 경우, 특정 도메인만 허용하도록 설정 가능
+    allow_credentials=True,
+    allow_methods=["*"],  # 모든 HTTP 메소드 허용
+    allow_headers=["*"],  # 모든 헤더 허용
+)
 
 @app.get("/api/py/get_db")
 def get_db():

@@ -52,7 +52,7 @@ export default function Chat() {
         };
         
         console.log('requestBody:', requestBody);
-
+        
         const response = await fetch('/api/py/conversation', {
           method: 'POST',
           headers: {
