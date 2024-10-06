@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import UserChat from "@/components/UserChat";
 import BotChat from "@/components/BotChat";
 import BotThinking from "@/components/BotThinking";
+import { UUID } from 'crypto';
 
 export default function Chat() {
   const [messages, setMessages] = useState<{ sender: 'user' | 'bot', text: string, isBotResponding?: boolean }[]>([]);
@@ -44,7 +45,7 @@ export default function Chat() {
         console.log('conversation_id:', conversation_id);
         
         // 요청 바디 생성
-        const requestBody: {user_prompt: string, nickname: string, conversation_id?: any} = {
+        const requestBody: {user_prompt: string, nickname: string, conversation_id?: string} = {
           user_prompt: message,
           nickname: nickname,
           // conversation_id가 null이 아닐 때만 포함
