@@ -16,7 +16,7 @@ const nextConfig = {
         source: "/api/py/:path*",
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/py/:path*"
+            ? "http://https://nutri-ai-6.vercel.app/api/py/:path*"
             : "/api/",
       },
       {
