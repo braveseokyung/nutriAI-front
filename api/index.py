@@ -11,13 +11,15 @@ from openai import OpenAI
 from sqlalchemy import text
 from sqlalchemy import func, any_
 from supabase import Client, create_client
-
+import os
+from dotenv import load_dotenv
 from . import models
 from .database import SessionLocal, engine
 
-API_KEY='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'
-SUP_API_URL='https://knhkyoautxqxedohwdrp.supabase.co'
-SUP_API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtuaGt5b2F1dHhxeGVkb2h3ZHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc0MjU0NzMsImV4cCI6MjA0MzAwMTQ3M30.lGwG2ZNflrMGJKlG64HWd0Zag31pAADvMesl-Uom_zA'
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+SUP_API_URL=os.getenv('SUP_API_URL')
+SUP_API_KEY=os.getenv('SUP_API_KEY')
 
 CHAT_MODEL="gpt-4o-2024-08-06"
 
