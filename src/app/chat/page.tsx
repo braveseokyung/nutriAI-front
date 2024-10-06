@@ -44,7 +44,7 @@ export default function Chat() {
         console.log('conversation_id:', conversation_id);
         
         // 요청 바디 생성
-        const requestBody: any = {
+        const requestBody: {user_prompt: string, nickname: string, conversation_id?: any} = {
           user_prompt: message,
           nickname: nickname,
           // conversation_id가 null이 아닐 때만 포함
