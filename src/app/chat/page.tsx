@@ -8,7 +8,6 @@ import Header from "@/components/Header";
 import UserChat from "@/components/UserChat";
 import BotChat from "@/components/BotChat";
 import BotThinking from "@/components/BotThinking";
-import { UUID } from 'crypto';
 
 export default function Chat() {
   const [messages, setMessages] = useState<{ sender: 'user' | 'bot', text: string, isBotResponding?: boolean }[]>([]);
