@@ -67,7 +67,7 @@ export default function Chat() {
         
         const data = await response.json();
         console.log('data:', data);
-        
+
         if (data.conversation_id) {
           sessionStorage.setItem('conversation_id', data.conversation_id);
         }
@@ -99,7 +99,6 @@ export default function Chat() {
 
   useEffect(() => {
     const storedChat = sessionStorage.getItem('chat');
-    const storedConversationId = sessionStorage.getItem('conversation_id');
 
     if (storedChat) {
       const sendMessage = async () => {
