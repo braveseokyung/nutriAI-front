@@ -16,7 +16,15 @@ from dotenv import load_dotenv
 from . import models
 from .database import SessionLocal, engine
 
-load_dotenv()
+# 현재 파일의 절대 경로 얻기
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Next.js 루트 폴더에 있는 .env.local 파일의 경로 생성
+dotenv_path = os.path.join(current_dir, '..', '.env.local')
+
+# 지정한 경로에서 환경 변수 로드
+load_dotenv(dotenv_path=dotenv_path)
+
 API_KEY = os.getenv('API_KEY')
 SUP_API_URL=os.getenv('SUP_API_URL')
 SUP_API_KEY=os.getenv('SUP_API_KEY')
