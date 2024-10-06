@@ -13,7 +13,7 @@ export default function BotChatFinalPicture() {
       <div className="flex items-start p-4 gap-2 w-[372px] h-[368px] bg-white border border-[#6892F9] shadow-md rounded-[4px_32px_32px_32px]">
         {/* Picture in Chat */}
         <div className="w-[332px] h-[332px] rounded-[13px] overflow-hidden">
-          <img
+          <Image
             src="https://shopping-phinf.pstatic.net/main_3350403/33504037000.2.jpg"
             alt="Chat Image"
             className="w-full h-full object-contain"
