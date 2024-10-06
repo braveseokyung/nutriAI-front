@@ -18,7 +18,7 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/api/py/:path*"
-            : "https://nutri-ai-6.vercel.app/api/py/:path*", // 프로덕션 백엔드 주소
+            : "https://astounding-choux-1a8b7b.netlify.app/api/py/:path*", // Netlify 배포 주소로 수정
       },
       // /docs 경로에 대한 처리
       {
@@ -26,7 +26,7 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/docs"
-            : "https://nutri-ai-6.vercel.app/docs", // 프로덕션 백엔드의 docs로 수정
+            : "https://astounding-choux-1a8b7b.netlify.app/docs", // Netlify 배포 주소로 수정
       },
       // /openapi.json 경로 처리
       {
@@ -34,7 +34,7 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/openapi.json"
-            : "https://nutri-ai-6.vercel.app/openapi.json", // 프로덕션 백엔드의 openapi.json으로 수정
+            : "https://astounding-choux-1a8b7b.netlify.app/openapi.json", // Netlify 배포 주소로 수정
       },
     ];
   },
