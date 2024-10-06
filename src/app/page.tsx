@@ -1,27 +1,15 @@
-import Image from "next/image";
-import logo1 from "@/images/logo1.svg";
-import background from "@/images/background.svg";
+'use client';
 
-import InputButton from "@/components/InputButton";
-import RecommendButton from "@/components/RecommendButton";
+import { useEffect, useState } from 'react'
 
 export default function Home() {
-  return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen w-full bg-cover bg-center"
-      style={{ backgroundImage: `url(${background.src})` }}
-    >
-      <div className="absolute top-[250px]">
-        <div className="flex flex-col items-center justify-center w-[672px] h-[164px] gap-5">
-          <Image src={logo1} alt="NutriAI" className="w-[278px] h-[84px]" />
-          <InputButton route="home" />
-        </div>
-        <div className="flex gap-x-3 pt-4">
-          <RecommendButton text="요즘 자꾸 두통이 생기는 거 같아" />
-          <RecommendButton text="손을 많이 썼더니 손이 저려" />
-          <RecommendButton text="피곤하고 집중력이 떨어진 거 같아" />
-        </div>
-      </div> 
-    </div>
-  );
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    fetch('/api/py/helloFastApi')
+      .then(res => res.json())
+      .then(data => setMessage(data.message))
+  }, [])
+
+  return <div>{message}</div>
 }

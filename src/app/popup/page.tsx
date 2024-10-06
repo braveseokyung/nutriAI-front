@@ -3,7 +3,7 @@ import logo2 from "@/images/logo2.svg";
 import backgroundPopup from "@/images/backgroundPopup.svg";
 import InputButton from "@/components/InputButton";
 
-export default function Home() {
+export default function Popup() {
   return (
     <div className="relative min-h-screen w-full">
       {/* 블러 처리된 배경 */}

@@ -7,43 +7,110 @@ import ChatButton from "@/components/ChatButton";
 import Header from "@/components/Header";
 import UserChat from "@/components/UserChat";
 import BotChat from "@/components/BotChat";
+import BotThinking from "@/components/BotThinking";
 
-export default function Home() {
-  const [messages, setMessages] = useState<
-    { sender: 'user' | 'bot'; text: string }[]
-  >([]);
+export default function Chat() {
+  const [messages, setMessages] = useState<{ sender: 'user' | 'bot', text: string, isBotResponding?: boolean }[]>([]);
   const [isBotResponding, setIsBotResponding] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleSendMessage = (message: string) => {
+  const handleSendMessage = async (message: string) => {
     if (message.trim() !== '') {
+      // 사용자 메시지 추가
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: message },
+        // 봇의 "생각 중" 메시지 추가
+        { sender: 'bot', text: '', isBotResponding: true },
       ]);
+  
+      // 봇이 응답 중임을 표시
       setIsBotResponding(true);
+  
+      let conversation_id = sessionStorage.getItem('conversation_id');
+      // conversation_id가 없으면 null로 설정
+      if (!conversation_id) {
+        conversation_id = null;
+      }
+  
+      let nickname = sessionStorage.getItem('name');
+      if (!nickname) {
+        nickname = 'none';
+      }
+  
+      try {
+        console.log('message:', message);
+        console.log('nickname:', nickname);
+        console.log('conversation_id:', conversation_id);
+        
+        // 요청 바디 생성
+        const requestBody: any = {
+          user_prompt: message,
+          nickname: nickname,
+          // conversation_id가 null이 아닐 때만 포함
+          ...(conversation_id && { conversation_id: conversation_id }),
+        };
+        
+        console.log('requestBody:', requestBody);
 
-      // Simulate bot response after a delay
-      setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'bot', text: 'Bot response to: ' + message },
-        ]);
+        const response = await fetch('/api/py/conversation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('data:', data);
+        
+        if (data.conversation_id) {
+          sessionStorage.setItem('conversation_id', data.conversation_id);
+        }
+        
+        setMessages((prevMessages) => {
+          const newMessages = [...prevMessages];
+          newMessages[newMessages.length - 1] = {
+            sender: 'bot',
+            text: data.response,
+          };
+          return newMessages;
+        });
+      } catch (error) {
+        console.error('Error fetching bot response:', error);
+        setMessages((prevMessages) => {
+          const newMessages = [...prevMessages];
+          newMessages[newMessages.length - 1] = {
+            sender: 'bot',
+            text: '죄송합니다. 응답을 가져오는 중에 문제가 발생했습니다.',
+          };
+          return newMessages;
+        });
+      } finally {
         setIsBotResponding(false);
-      }, 1000);
+      }
     }
   };
   
-  useEffect(() => {
-    // 세션 스토리지에서 inputValue를 불러옴
-    const storedValue = sessionStorage.getItem('chat');
-    if (storedValue) {
-      // 세션 스토리지에서 데이터를 불러온 후, 메시지 전송 함수 호출
-      handleSendMessage(storedValue);
-      // 세션 스토리지에서 데이터 삭제
-      sessionStorage.removeItem('chat');
-    }
 
+  useEffect(() => {
+    const storedChat = sessionStorage.getItem('chat');
+    const storedConversationId = sessionStorage.getItem('conversation_id');
+
+    if (storedChat) {
+      const sendMessage = async () => {
+        await handleSendMessage(storedChat);
+        sessionStorage.removeItem('chat');
+      };
+      sendMessage();
+    }
+  }, []);
+
+  useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
         top: chatContainerRef.current.scrollHeight,
@@ -64,7 +131,7 @@ export default function Home() {
       <div className="fixed top-0 left-0 w-full z-10">
         <Header />
       </div>
-      
+
       {/* Chat Container */}
       <div
         ref={chatContainerRef}
@@ -74,7 +141,15 @@ export default function Home() {
           {/* Render each message */}
           {messages.map((message, index) => (
             <div key={index} className={message.sender === 'user' ? 'self-end' : 'self-start'}>
-              {message.sender === 'user' ? <UserChat message={message.text} /> : <BotChat message={message.text} />}
+              {message.sender === 'user' ? (
+                <UserChat message={message.text} />
+              ) : (
+                message.isBotResponding ? (
+                  <BotThinking />
+                ) : (
+                  <BotChat message={message.text} />
+                )
+              )}
             </div>
           ))}
         </div>

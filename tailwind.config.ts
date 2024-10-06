@@ -30,8 +30,18 @@ const config: Config = {
         gray_500: "#929AAD",
         gray_600: "#7C8394"
       },
+      keyframes: {
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        'spin-slow': 'spin-slow 1.3s linear infinite',
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
