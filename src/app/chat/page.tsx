@@ -53,7 +53,7 @@ export default function Chat() {
         
         console.log('requestBody:', requestBody);
         
-        const response = await fetch('/api/py/conversation', {
+        const response = await fetch('https://astounding-choux-1a8b7b.netlify.app/api/py/conversation', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
