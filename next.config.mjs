@@ -17,7 +17,7 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/api/py/:path*"
-            : "/api/py/:path*", // 프로덕션 환경에서도 동일한 경로 사용
+            : "https://nutri-ai-6.vercel.app/api/py/:path*", // 프로덕션 백엔드 주소로 수정
       },
       {
         source: "/docs",
