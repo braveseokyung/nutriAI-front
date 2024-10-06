@@ -17,22 +17,22 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/api/py/:path*"
-            : "https://astounding-choux-1a8b7b.netlify.app/api/py/:path*", // 프로덕션 백엔드 주소로 수정
+            : "/api/py/", // 프로덕션 백엔드 주소로 수정
       },
-      {
-        source: "/docs",
-        destination:
-          process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/py/docs"
-            : "https://astounding-choux-1a8b7b.netlify.app/api/py/docs",
-      },
-      {
-        source: "/openapi.json",
-        destination:
-          process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/py/openapi.json"
-            : "https://astounding-choux-1a8b7b.netlify.app/api/py/openapi.json",
-      },
+      // {
+      //   source: "/docs",
+      //   destination:
+      //     process.env.NODE_ENV === "development"
+      //       ? "http://127.0.0.1:8000/api/py/docs"
+      //       : "https://astounding-choux-1a8b7b.netlify.app/api/py/docs",
+      // },
+      // {
+      //   source: "/openapi.json",
+      //   destination:
+      //     process.env.NODE_ENV === "development"
+      //       ? "http://127.0.0.1:8000/api/py/openapi.json"
+      //       : "https://astounding-choux-1a8b7b.netlify.app/api/py/openapi.json",
+      // },
     ];
   },
 };
