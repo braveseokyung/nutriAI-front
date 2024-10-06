@@ -12,26 +12,29 @@ const nextConfig = {
 
   rewrites: async () => {
     return [
+      // API 요청을 백엔드로 포워딩
       {
         source: "/api/py/:path*",
         destination:
           process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000/api/py/:path*"
-            : "/api/py/:path*", // 프로덕션 환경에서도 동일한 경로 사용
+            : "https://astounding-choux-1a8b7b.netlify.app/:path*", // Netlify 배포 주소로 수정
       },
+      // /docs 경로에 대한 처리
       {
         source: "/docs",
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/py/docs"
-            : "/api/py/docs",
+            ? "http://127.0.0.1:8000/docs"
+            : "https://astounding-choux-1a8b7b.netlify.app/docs", // Netlify 배포 주소로 수정
       },
+      // /openapi.json 경로 처리
       {
         source: "/openapi.json",
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/py/openapi.json"
-            : "/api/py/openapi.json",
+            ? "http://127.0.0.1:8000/openapi.json"
+            : "https://astounding-choux-1a8b7b.netlify.app/openapi.json", // Netlify 배포 주소로 수정
       },
     ];
   },
