@@ -38,6 +38,15 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
 
+# CORS 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 모든 도메인 허용, 필요에 따라 특정 도메인으로 제한 가능
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/api/py/get_db")
 def get_db():
     db = SessionLocal()
